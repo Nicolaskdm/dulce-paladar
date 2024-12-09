@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dulce Paladar - Cadastro</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <link rel="icon" href="img/iconf.png"/>
+    <link rel="stylesheet" href="css/style.css"/>
+    
+    
+</head>
+<body class="bg-padrao">
+
+  <nav class="bg-padrao">
+            <div class="nav-logo">
+                <img src="img/logo.png" alt="alt"/>
+            </div>
+
+            <ul class="nav-menu">
+                <li><a href="">Home</a></li>
+                <li><a href="">About Us</a></li>
+                <li><a href="">Menu</a></li>
+                <li><a href="">Contact</a></li>
+            </ul>
+
+            <div>
+                <img class="icon-perfil invert-icon" src="img/perfil.png" alt="alt"/>
+                <a class="botao-reservar" href="url">Reservar Mesa</a>
+            </div>
+
+
+        </nav>
+
+    <div class="container mt-5 text-center col-sm-10 col-md-6">
+        <h1>Cadastro</h1>
+        <form action="usuario-controller" method="post" class="validar" novalidate>
+            <input type="hidden" name="pagina" value="cadastro">
+            
+
+            <div class="form-floating mt-3">
+                <input type="text" id="nome" name="nome" class="form-control" placeholder="Nome completo" required minlength="6">
+                <label for="nome">Nome completo</label>
+                <small class="invalid-feedback text-start">O nome precisa conter no mínimo 6 caracteres.</small>
+            </div>
+
+
+            <div class="form-floating mt-3">
+                <input type="email" id="email" name="email" class="form-control" placeholder="email@exemplo.com" required>
+                <label for="email">E-mail</label>
+                <small class="invalid-feedback text-start">O endereço precisa conter '@' e um domínio (exemplo@email.com).</small>
+            </div>
+
+
+            <div class="form-floating mt-3">
+                <input type="date" id="nasc" name="nasc" class="form-control" required>
+                <label for="nasc">Data de nascimento</label>
+                <small class="invalid-feedback text-start">O usuário precisa ter no mínimo 18 anos.</small>
+            </div>
+
+            
+            <div class="form-floating mt-3">
+                <input type="password" id="senha" name="senha" class="form-control" placeholder="Senha" required minlength="6" pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s]).{6,}$" onkeyup="validarSenha()">
+                <label for="senha">Senha</label>
+                <div class="invalid-feedback text-start">
+                    <small>A senha precisa ter:</small>
+                    <ul class="text-start">
+                        <li id="minimo"><small>No mínimo, 6 caracteres</small></li>
+                        <li id="maiuscula"><small>Letras MAIÚSCULAS</small></li>
+                        <li id="especial"><small>Caracteres especiais</small></li>
+                        <li id="numero"><small>Números</small></li>
+                    </ul>
+                </div>
+                <small class="valid-feedback text-start">Senha ok!</small>
+            </div>
+            
+            <div class="form-floating mt-3">
+                <input type="password" id="confere-senha" name="confere-senha" class="form-control" placeholder="Confirmação da senha" required minlength="6" onkeyup="validarSenha()">
+                <label for="confere-senha">Confirmação da senha</label>
+                <small class="invalid-feedback text-start">As senhas não são iguais.</small>
+            </div>
+
+            <div class="form-floating mt-3">
+                <input type="tel" id="celular" name="celular" class="form-control" placeholder="Celular" required pattern="^\d{11}$">
+                <label for="celular">Celular</label>
+                <small class="invalid-feedback text-start">Digite o número no formato 9XXXXXXXXX.</small>
+            </div>
+
+            <div class="form-floating mt-3">
+                <input type="text" id="cep" name="cep" class="form-control" placeholder="CEP" required pattern="^\d{8}$">
+                <label for="cep">CEP</label>
+                <small class="invalid-feedback text-start">Digite o CEP no formato 00000-000.</small>
+            </div>
+
+            <div class="form-floating mt-3">
+                <input type="text" id="rua" name="rua" class="form-control" placeholder="Rua" required>
+                <label for="rua">Rua</label>
+            </div>
+
+            <div class="form-floating mt-3">
+                <input type="text" id="numero" name="numero" class="form-control" placeholder="Número" required>
+                <label for="numero">Número</label>
+            </div>
+
+            <div class="form-floating mt-3">
+                <input type="text" id="bairro" name="bairro" class="form-control" placeholder="Bairro" required>
+                <label for="bairro">Bairro</label>
+            </div>
+
+            <div class="form-floating mt-3">
+                <input type="text" id="cidade" name="cidade" class="form-control" placeholder="Cidade" required>
+                <label for="cidade">Cidade</label>
+            </div>
+
+            <hr>
+
+            <div class="d-grid mt-4">
+                <input type="submit" value="Cadastrar" class="btn btn-outline-light">
+                <input type="reset" value="Limpar campos" class="btn btn-outline-danger mt-3">
+            </div>
+        </form>
+    </div>
+
+    <script src="js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        const campoSenha = document.getElementById("senha");
+        const campoConfSenha = document.getElementById("confere-senha");
+        const minimo = document.getElementById("minimo");
+        const maiuscula = document.getElementById("maiuscula");
+        const especial = document.getElementById("especial");
+        const numero = document.getElementById("numero");
+
+        function validarSenha() {
+            campoConfSenha.minLength = campoSenha.value.length;
+
+            if (campoSenha.value === campoConfSenha.value) {
+                campoConfSenha.classList.add("is-valid");
+            } else {
+                campoConfSenha.minLength = 10000;
+            }
+
+            (campoSenha.value.length >= 6) ? minimo.style.color = "green" : minimo.style.color = "red";
+            (/[A-Z]/.test(campoSenha.value)) ? maiuscula.style.color = "green" : maiuscula.style.color = "red";
+            (/[^\w\s]/.test(campoSenha.value)) ? especial.style.color = "green" : especial.style.color = "red";
+            (/[\d]/.test(campoSenha.value)) ? numero.style.color = "green" : numero.style.color = "red";
+        }
+    </script>
+
+</body>
+</html>
